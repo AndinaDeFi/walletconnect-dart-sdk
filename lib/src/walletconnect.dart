@@ -613,10 +613,10 @@ class WalletConnect {
     String? errorMessage,
     bool forceClose = false,
   }) async {
+    // Remove session from storage
+    await sessionStorage?.removeSession(session);
+    // Then cleans the session
     session.reset();
-
-    // Remove storage session
-    await sessionStorage?.removeSession();
 
     // Close the web socket connection
     await _transport.close(forceClose: forceClose);
