@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 import 'package:walletconnect_dart/src/exceptions/exceptions.dart';
 import 'package:walletconnect_dart/src/session/peer_meta.dart';
 import 'package:walletconnect_dart/src/utils/key_converter.dart';
@@ -60,6 +61,7 @@ class WalletConnectSession {
 
     final key = params['key'] ??
         (throw WalletConnectException('Missing key param in URI'));
+    final clientId = const Uuid().v4();
 
     return WalletConnectSession(
       protocol: protocol,
@@ -68,6 +70,7 @@ class WalletConnectSession {
       bridge: Uri.decodeFull(bridge),
       key: Uint8List.fromList(hex.decode(key)),
       accounts: [],
+      clientId: clientId,
     );
   }
 
